@@ -35,9 +35,31 @@ def modifier_statut_todo():
                 todo['statut'] = 'Fait'
                 print(f'Le statut du todo "{todo["titre"]}" est maintenant "Fait".')
             elif todo['statut'] == 'Fait':
-                # Erreur volontaire : met le statut en "À fair" sans le "e"
-                todo['statut'] = 'À fair'
-                print(f'Le statut du todo "{todo["titre"]}" est maintenant "À fair".')
+                todo['statut'] = 'À faire'  # Correction de l'erreur volontaire
+                print(f'Le statut du todo "{todo["titre"]}" est maintenant "À faire".')
+        else:
+            print('Numéro de todo invalide.')
+    except ValueError:
+        print('Veuillez entrer un numéro valide.')
+
+# Fonction pour supprimer un todo
+def supprimer_todo():
+    """Supprimer un todo."""
+    if not todos:
+        print('Aucun todo disponible pour suppression.')
+        return
+
+    lister_todos()
+    try:
+        choix = int(input('Entrez le numéro du todo à supprimer : '))
+        if 1 <= choix <= len(todos):
+            todo = todos[choix - 1]
+            confirmation = input(f'Êtes-vous sûr de vouloir supprimer "{todo["titre"]}" ? (o/n) : ')
+            if confirmation.lower() == 'o':
+                todos.pop(choix - 1)
+                print(f'Todo "{todo["titre"]}" supprimé avec succès.')
+            else:
+                print('Suppression annulée.')
         else:
             print('Numéro de todo invalide.')
     except ValueError:
@@ -50,6 +72,7 @@ while choix != 'q':
     print('1: Lister les todos')
     print('2: Créer un todo')
     print('3: Modifier le statut d\'un todo')
+    print('4: Supprimer un todo')
     print('q: Quitter')
     print('=========================')
 
@@ -61,9 +84,13 @@ while choix != 'q':
         creer_todo()
     elif choix == '3':
         modifier_statut_todo()
+    elif choix == '4':
+        supprimer_todo()
     elif choix == 'q':
         print('Au revoir !')
     else:
         print('Choix invalide.')
+
+   
 
 
